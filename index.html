@@ -10,42 +10,40 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         body, html { width: 100%; height: 100%; font-family: 'Poppins', sans-serif; background: var(--bg-dark); color: #ffffff; overflow: hidden; touch-action: none; }
 
-        /* SES PANELİ */
         #audio-panel { position: fixed; top: 20px; right: 20px; background: rgba(255, 183, 206, 0.15); padding: 8px 15px; border-radius: 25px; display: flex; align-items: center; gap: 10px; backdrop-filter: blur(15px); border: 1px solid rgba(255, 183, 206, 0.3); z-index: 20000; }
         #volume-slider { width: 60px; accent-color: var(--soft-pink); cursor: pointer; }
 
-        /* ANA EKRAN */
         #wrapper { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
-
-        /* ŞİFRE */
         #password-screen { position: absolute; text-align: center; z-index: 15000; transition: 1s; }
         input[type="password"] { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--soft-pink); padding: 15px; color: #ffffff; border-radius: 15px; font-size: 1.5rem; text-align: center; letter-spacing: 5px; width: 200px; outline: none; }
 
-        /* MESAJ KUTUSU */
         #main-content { display: none; text-align: center; padding: 30px; width: 85%; max-width: 380px; opacity: 0; background: rgba(20, 20, 20, 0.75); border-radius: 30px; border: 1px solid rgba(255, 183, 206, 0.2); backdrop-filter: blur(10px); transition: 1.5s; z-index: 5000; position: relative; }
         .header-text { font-size: 1.8rem; font-weight: 800; color: var(--soft-pink); margin-bottom: 15px; }
 
-        /* SAYAÇ */
         #timer { display: flex; justify-content: center; gap: 8px; }
         .time-box { background: rgba(255, 183, 206, 0.1); padding: 10px; border-radius: 12px; min-width: 60px; }
         .time-box b { font-size: 1.1rem; display: block; color: var(--soft-pink); }
         .time-box span { font-size: 8px; text-transform: uppercase; opacity: 0.6; }
 
-        /* FOTOĞRAF POPUP (KÜÇÜLTÜLMÜŞ VE SABİTLENMİŞ BOYUT) */
-        #photo-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); background: #000; padding: 8px; border-radius: 15px; border: 2px solid var(--soft-pink); z-index: 30000; opacity: 0; pointer-events: none; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            /* Sabit Boyut Ayarları (Kare) */
-            width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden;
-            box-shadow: 0 0 25px rgba(255, 183, 206, 0.4); text-align: center; }
+        /* DİNAMİK FOTOĞRAF POPUP */
+        #photo-popup { 
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); 
+            background: #000; padding: 8px; border-radius: 15px; border: 2px solid var(--soft-pink); 
+            z-index: 30000; opacity: 0; pointer-events: none; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+            box-shadow: 0 0 25px rgba(255, 183, 206, 0.4); 
+        }
         #photo-popup.active { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
         
-        #popup-img { 
-            /* Fotoğrafı Çerçevenin İçine Sabitleme */
-            width: 100%; height: 100%; border-radius: 10px; display: none; object-fit: cover; /* Fotoğrafı kırparak kareye sığdırır */
-        }
-        
-        /* Alt Yazı Kaldırıldı */
+        /* 3 ve 4 İÇİN SABİT BOYUT SINIFI */
+        .fixed-size { width: 200px !important; height: 200px !important; }
+        /* DİĞERLERİ İÇİN OTOMATİK BOYUT SINIFI */
+        .auto-size { width: auto !important; height: auto !important; max-width: 85vw; max-height: 70vh; }
 
-        /* HAYALET YAZILAR VE MEKTUPLAR (ÖN PLANDA) */
+        #popup-img { width: 100%; height: 100%; border-radius: 10px; display: none; object-fit: cover; }
+        /* Otomatik boyutta olanlar için object-fit'i contain yapıyoruz ki resim bozulmasın */
+        .auto-size #popup-img { object-fit: contain; width: auto; height: auto; max-width: 100%; max-height: 100%; }
+
         .floating-item { position: absolute; color: var(--soft-pink); font-weight: 300; z-index: 10000; opacity: 0; animation: fadeMove 5s ease-in-out forwards; white-space: nowrap; pointer-events: auto; }
         .letter-item { cursor: pointer; font-size: 2.3rem; filter: drop-shadow(0 0 10px var(--soft-pink)); z-index: 11000; }
         
@@ -149,8 +147,6 @@
             }, 1000);
 
             const words = ["Yavrum", "Birtanem", "Her şeyim", "Eşşek :)"];
-            const fotoSayisi = 7; 
-            let sonFotoIdx = 0;
 
             setInterval(() => createFloatingItem(words[Math.floor(Math.random() * words.length)], false), 2500);
             setInterval(() => createFloatingItem('✉️', true), 9000);
@@ -159,23 +155,36 @@
                 const item = document.createElement('div');
                 item.className = 'floating-item' + (isLetter ? ' letter-item' : '');
                 item.innerHTML = content;
-                
                 item.style.left = (Math.random() * 80 + 5) + '%';
                 item.style.top = (Math.random() * 70 + 10) + '%';
                 
                 if (isLetter) {
                     item.onclick = (e) => {
                         e.stopPropagation();
-                        let randomIdx;
-                        do {
-                            randomIdx = Math.floor(Math.random() * fotoSayisi) + 1;
-                        } while (randomIdx === sonFotoIdx);
-                        sonFotoIdx = randomIdx;
+                        
+                        // %80 olasılıkla 3 veya 4, %20 olasılıkla diğerleri
+                        let selectedIdx;
+                        let chance = Math.random();
+                        
+                        if (chance < 0.80) {
+                            // 3 veya 4 seç
+                            selectedIdx = Math.random() < 0.5 ? 3 : 4;
+                        } else {
+                            // 1, 2, 5, 6, 7'den birini seç
+                            const others = [1, 2, 5, 6, 7];
+                            selectedIdx = others[Math.floor(Math.random() * others.length)];
+                        }
 
-                        popupImg.src = `cocukluk${randomIdx}.jpg`; 
+                        // Boyut Ayarı
+                        if (selectedIdx === 3 || selectedIdx === 4) {
+                            popup.className = 'active fixed-size';
+                        } else {
+                            popup.className = 'active auto-size';
+                        }
+
+                        popupImg.src = `cocukluk${selectedIdx}.jpg`; 
                         popupImg.onload = () => {
                             popupImg.style.display = 'block';
-                            popup.classList.add('active');
                         };
                         item.remove();
                     };
