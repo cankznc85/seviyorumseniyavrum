@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zeynep 💜</title>
+    <title>Zeynep 🖤</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
@@ -11,98 +11,81 @@
         body, html {
             width: 100%; height: 100%;
             font-family: 'Poppins', sans-serif;
-            background: #001b3a; 
-            color: #ffffff;
+            background: #050505; /* Mat Siyah */
+            color: #ffffff; /* Ana Yazılar Beyaz */
             display: flex; justify-content: center; align-items: center;
-            overflow: hidden; touch-action: none; /* Kaydırmayı kökten engeller */
+            overflow: hidden; touch-action: none;
         }
 
+        /* Hafif Siyah Işıltı */
         .bg-glow {
             position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #002d5f 0%, #001b3a 85%);
+            background: radial-gradient(circle at center, #111 0%, #050505 85%);
             z-index: -1;
         }
 
-        /* ŞİFRE EKRANI */
-        #password-screen { text-align: center; transition: all 0.8s ease; z-index: 20; padding: 20px; }
-        .lock-icon { font-size: 3.5rem; margin-bottom: 20px; filter: drop-shadow(0 0 10px #ff69b4); }
+        /* ŞİFRE EKRANI (🔒) */
+        #password-screen { text-align: center; transition: all 1s ease; z-index: 20; padding: 20px; }
+        .lock-icon { font-size: 3.5rem; margin-bottom: 25px; filter: drop-shadow(0 0 10px #ff69b4); }
         
         input {
-            background: rgba(255, 255, 255, 0.05); border: 2.5px solid #ff69b4;
-            padding: 15px; color: #ffffff; border-radius: 20px;
-            font-size: 1.5rem; text-align: center; letter-spacing: 6px;
+            background: rgba(255, 255, 255, 0.02); border: 2px solid rgba(255, 105, 180, 0.4);
+            padding: 15px; color: #ffffff; border-radius: 15px;
+            font-size: 1.4rem; text-align: center; letter-spacing: 6px;
             width: 220px; outline: none; transition: 0.3s;
         }
-        input:focus { box-shadow: 0 0 25px rgba(255, 105, 180, 0.4); }
+        input:focus { border-color: #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.3); }
 
         /* ANA İÇERİK KUTUSU */
         #main-content { 
             display: none; text-align: center; 
-            padding: 35px 15px; width: 95%; max-width: 420px; 
+            padding: 40px; width: 92%; max-width: 500px; 
             z-index: 10; opacity: 0; 
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.01);
             border-radius: 30px;
-            border: 1px solid rgba(255, 105, 180, 0.3);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05); /* Siyah-Beyaz Çerçeve */
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
 
+        /* Pembe İmza Detay */
         .header-text {
             font-size: 1.8rem; font-weight: 800; color: #ff69b4;
-            margin-bottom: 20px; letter-spacing: 1px;
+            margin-bottom: 25px; letter-spacing: 1px;
             text-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
         }
 
         .zeynep-msg { 
-            font-size: clamp(1rem, 4.2vw, 1.4rem); font-weight: 400; 
-            color: #ffffff; line-height: 1.7; margin-bottom: 30px; 
+            font-size: clamp(1.1rem, 4.5vw, 1.6rem); font-weight: 300; 
+            color: #ffffff; line-height: 1.6; margin-bottom: 35px; 
         }
         
-        /* KAYMA YAPMAYAN SAYAÇ SİSTEMİ */
-        #timer { 
-            display: flex; 
-            justify-content: center; 
-            gap: 6px; 
-            width: 100%;
-        }
+        /* Sayaç */
+        #timer { display: flex; justify-content: space-between; gap: 8px; }
         .time-box {
-            background: rgba(0, 0, 0, 0.25);
-            flex: 1; 
-            min-width: 0; /* İçeriğin kutuyu zorlamasını engeller */
-            padding: 12px 2px; 
-            border-radius: 12px;
-            border: 1px solid rgba(255, 105, 180, 0.15);
+            background: rgba(0, 0, 0, 0.3);
+            flex: 1; padding: 15px 2px; border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
-        .time-box b { 
-            font-size: clamp(1.1rem, 4vw, 1.4rem); 
-            display: block; 
-            color: #ff69b4; 
-            margin-bottom: 2px; 
-        }
-        .time-box span { 
-            font-size: 0.55rem; 
-            color: #ffffff; 
-            text-transform: uppercase; 
-            opacity: 0.8; 
-            font-weight: 600;
-            display: block;
-        }
+        .time-box b { font-size: 1.6rem; display: block; color: #ff69b4; margin-bottom: 2px; } /* Pembe Sayılar */
+        .time-box span { font-size: 0.6rem; color: #ffffff; text-transform: uppercase; opacity: 0.8; font-weight: 600; }
 
-        /* Kalp Animasyonu */
+        /* Zarif Pembe Kalpler */
         .click-heart {
             position: absolute; pointer-events: none;
-            animation: moveUp 0.8s ease-out forwards;
+            animation: moveUp 1.2s ease-out forwards;
             font-size: 24px; z-index: 999;
         }
         @keyframes moveUp {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-130px) scale(1.4) rotate(15deg); opacity: 0; }
         }
 
         .show { animation: fadeIn 1.2s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body>
+<body onclick="createHeart(event)">
 
     <div class="bg-glow"></div>
 
@@ -119,8 +102,8 @@
         <div id="timer">
             <div class="time-box"><b id="days">00</b><span>Gün</span></div>
             <div class="time-box"><b id="hours">00</b><span>Saat</span></div>
-            <div class="time-box"><b id="minutes">00</b><span>Dk</span></div>
-            <div class="time-box"><b id="seconds">00</b><span>Sn</span></div>
+            <div class="time-box"><b id="minutes">00</b><span>Dakika</span></div>
+            <div class="time-box"><b id="seconds">00</b><span>Saniye</span></div>
         </div>
     </div>
 
@@ -137,31 +120,25 @@
             heart.style.left = (x - 12) + 'px';
             heart.style.top = (y - 12) + 'px';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 800);
+            setTimeout(() => heart.remove(), 1200);
         }
 
         const handleInteraction = (e) => {
             if (mainContent.style.display === 'block') {
                 if (e.touches) {
-                    for (let i = 0; i < e.touches.length; i++) {
-                        spawnHeart(e.touches[i].clientX, e.touches[i].clientY);
-                    }
+                    for (let i = 0; i < e.touches.length; i++) spawnHeart(e.touches[i].clientX, e.touches[i].clientY);
                 } else {
                     spawnHeart(e.clientX, e.clientY);
                 }
             }
         };
 
-        // Event Listeners
-        window.addEventListener('mousedown', () => { window.isMouseDown = true; });
-        window.addEventListener('mouseup', () => { window.isMouseDown = false; });
-        window.addEventListener('mousemove', (e) => { if(window.isMouseDown) handleInteraction(e); });
+        window.addEventListener('mousedown', () => window.isMouseDown = true);
+        window.addEventListener('mouseup', () => window.isMouseDown = false);
+        window.addEventListener('mousemove', (e) => window.isMouseDown && handleInteraction(e));
         window.addEventListener('click', handleInteraction);
         window.addEventListener('touchstart', handleInteraction);
-        window.addEventListener('touchmove', (e) => { 
-            if(mainContent.style.display === 'block') e.preventDefault(); 
-            handleInteraction(e); 
-        }, { passive: false });
+        window.addEventListener('touchmove', (e) => { e.preventDefault(); handleInteraction(e); }, { passive: false });
 
         function startRelationshipTimer() {
             const relStart = new Date(2026, 0, 4, 0, 0, 0); 
@@ -177,8 +154,7 @@
                 elements.m.innerText = Math.floor((diff / 1000 / 60) % 60).toString().padStart(2, '0');
                 elements.s.innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
                 requestAnimationFrame(update);
-            }
-            update();
+            } update();
         }
 
         passInput.addEventListener('input', () => {
