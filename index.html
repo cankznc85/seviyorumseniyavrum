@@ -3,91 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zeynep ✨</title>
+    <title>Zeynep 💜</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        
         body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #050505; color: #fff;
+            width: 100%; height: 100%;
             font-family: 'Poppins', sans-serif;
+            background: #050505; color: #fff;
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; touch-action: manipulation;
         }
 
-        /* Arka Plan Neon Mor Işıltı */
-        .bg-glow {
+        /* Canlı Arka Plan (Derin Gece Atmosferi) */
+        .bg-atmosphere {
             position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #2e0854 0%, #050505 85%);
-            z-index: -1; opacity: 0.7;
+            background: radial-gradient(circle at center, #3a1c71 0%, #d76d77 50%, #ffaf7b 100%);
+            z-index: -1; opacity: 0.8;
+            filter: blur(50px); animation: pulseGlow 10s infinite alternate;
         }
+        @keyframes pulseGlow { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
 
-        /* 1. EKRAN: ŞİFRE GİRİŞİ */
-        #password-screen { text-align: center; transition: opacity 0.8s ease; z-index: 20; }
-        .lock-icon { font-size: 3.5rem; margin-bottom: 20px; filter: drop-shadow(0 0 15px #9b59b6); }
+        /* 1. EKRAN: ŞİFRE (🔒) */
+        #password-screen { 
+            text-align: center; transition: all 1s ease; z-index: 20; 
+            padding: 20px;
+        }
+        .lock-icon { font-size: 4rem; margin-bottom: 25px; filter: drop-shadow(0 0 15px #ffaf7b); }
+        
         input {
-            background: rgba(155, 89, 182, 0.05); border: 2px solid #9b59b6;
-            padding: 15px; color: #fff; border-radius: 15px;
-            font-size: 1.5rem; text-align: center; letter-spacing: 6px;
-            width: 240px; outline: none; transition: 0.3s;
+            background: rgba(255, 255, 255, 0.03); border: 2.5px solid rgba(215, 109, 119, 0.6);
+            padding: 18px; color: #fff; border-radius: 20px;
+            font-size: 1.6rem; text-align: center; letter-spacing: 8px;
+            width: 250px; outline: none; transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        input:focus { box-shadow: 0 0 25px rgba(155, 89, 182, 0.3); }
+        input:focus { 
+            border-color: #ffaf7b;
+            box-shadow: 0 0 30px rgba(255, 175, 123, 0.5);
+            background: rgba(255, 255, 255, 0.06);
+        }
 
-        /* 2. EKRAN: ANA İÇERİK */
+        /* 2. EKRAN: ANA İÇERİK (Cam Efekti Box) */
         #main-content { 
-            display: none; text-align: center; padding: 25px; 
-            max-width: 500px; z-index: 10; opacity: 0; 
+            display: none; text-align: center; 
+            padding: 40px; width: 90%; max-width: 550px; 
+            z-index: 10; opacity: 0; 
+            
+            /* Glassmorphism Efekti */
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
         }
+
         .zeynep-msg { 
-            font-size: clamp(1.3rem, 5vw, 2.1rem); font-weight: 600; color: #dcd0ff; 
-            line-height: 1.5; margin-bottom: 30px; 
+            font-size: clamp(1.4rem, 6vw, 2.3rem); font-weight: 800; 
+            color: #ffaf7b; line-height: 1.4; margin-bottom: 40px; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
         }
         
+        /* Sayaç Kutucukları */
         #timer { 
-            font-size: 0.85rem; background: rgba(255, 255, 255, 0.03); 
-            padding: 25px; border-radius: 25px; 
-            border: 1px solid rgba(155, 89, 182, 0.2);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            line-height: 1.8; color: #eee;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+            margin-top: 20px;
         }
-        #timer b { color: #9b59b6; font-size: 1.15rem; display: block; margin-bottom: 5px; }
+        .time-box {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px 10px; border-radius: 15px;
+            border: 1px solid rgba(215, 109, 119, 0.3);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        }
+        .time-box b { font-size: 2.5rem; display: block; color: #ffaf7b; }
+        .time-box span { font-size: 0.7rem; color: #ccc; text-transform: uppercase; font-weight: 300; }
 
-        /* Dokunmatik Kalp Efekti */
+        /* Zarif Kalp Efekti */
         .click-heart {
             position: absolute; pointer-events: none;
-            animation: fly 0.8s ease-out forwards;
-            font-size: 24px; z-index: 999;
+            animation: zarifUcus 1.5s ease-out forwards;
+            font-size: 28px; z-index: 999;
+            filter: drop-shadow(0 0 5px rgba(215, 109, 119, 0.5));
         }
-        @keyframes fly {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-120px) scale(1.6) rotate(15deg); opacity: 0; }
+        @keyframes zarifUcus {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-150px) scale(1.8) rotate(15deg); opacity: 0; }
         }
 
         /* İçerik Açılış Animasyonu */
-        .show { animation: slideUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-        @keyframes slideUp { 
-            from { opacity: 0; transform: translateY(50px); } 
-            to { opacity: 1; transform: translateY(0); } 
+        .show { animation: premiumPop 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
+        @keyframes premiumPop { 
+            from { opacity: 0; transform: scale(0.9) translateY(40px); } 
+            to { opacity: 1; transform: scale(1) translateY(0); } 
         }
     </style>
 </head>
 <body onclick="createHeart(event)">
 
-    <div class="bg-glow"></div>
+    <div class="bg-atmosphere"></div>
 
     <div id="password-screen">
         <div class="lock-icon">🔒</div>
-        <p style="letter-spacing: 2px; color: #9b59b6; font-size: 0.8rem; margin-bottom: 20px; font-weight: 600;">ERİŞİM ŞİFRESİNİ GİRİN</p>
-        <input type="password" id="passInput" placeholder="••••••••" maxlength="8" autocomplete="off">
+        <input type="password" id="passInput" placeholder="••••" maxlength="8" autocomplete="off">
     </div>
 
     <div id="main-content">
-        <div style="font-size: 3.5rem; margin-bottom: 20px;">💞</div>
         <div class="zeynep-msg">
             İyi ki varsın yavrum, sadece bugün değil her gün senin günün. Seni çok seviyorum öpüyorum birtanem 💞
         </div>
-        <div id="timer"></div>
-        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 30px; letter-spacing: 1px;">(Ekrana dokunmayı dene birtanem...)</p>
+        <div id="timer">
+            <div class="time-box"><b id="days">00</b><span>Gün</span></div>
+            <div class="time-box"><b id="hours">00</b><span>Saat</span></div>
+            <div class="time-box"><b id="minutes">00</b><span>Dakika</span></div>
+            <div class="time-box"><b id="seconds">00</b><span>Saniye</span></div>
+        </div>
     </div>
 
     <script>
@@ -95,22 +126,26 @@
         const mainContent = document.getElementById('main-content');
         const passInput = document.getElementById('passInput');
 
-        // Ekrana dokununca kalp çıkması
+        // Zarif Tıklama Efekti
         function createHeart(e) {
             if (mainContent.style.display === 'block') {
                 const heart = document.createElement('div');
                 heart.className = 'click-heart';
-                heart.innerHTML = Math.random() > 0.5 ? '❤️' : '💖';
+                heart.innerHTML = '💖';
                 heart.style.left = (e.clientX - 15) + 'px';
                 heart.style.top = (e.clientY - 15) + 'px';
                 document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 800);
+                setTimeout(() => heart.remove(), 1500);
             }
         }
 
-        // 4 Ocak Sayacı Fonksiyonu
+        // 4 Ocak Sayacı (Optimize edilmiş sürüm)
         function startRelationshipTimer() {
             const relStart = new Date(2026, 0, 4, 0, 0, 0); // 4 Ocak 2026
+            const elDays = document.getElementById('days');
+            const elHours = document.getElementById('hours');
+            const elMinutes = document.getElementById('minutes');
+            const elSeconds = document.getElementById('seconds');
             
             function update() {
                 const now = new Date();
@@ -121,15 +156,17 @@
                 const m = Math.floor((diff / 1000 / 60) % 60);
                 const s = Math.floor((diff / 1000) % 60);
 
-                document.getElementById('timer').innerHTML = 
-                    `<b>${d} Gün, ${h} Saat, ${m} Dakika, ${s} Saniye</b>Boyunca hayatımın en güzel anlamı oldun.`;
+                elDays.innerText = d.toString().padStart(2, '0');
+                elHours.innerText = h.toString().padStart(2, '0');
+                elMinutes.innerText = m.toString().padStart(2, '0');
+                elSeconds.innerText = s.toString().padStart(2, '0');
                 
                 requestAnimationFrame(update);
             }
             update();
         }
 
-        // Şifre Kontrolü
+        // Şifre Giriş Kontrolü
         passInput.addEventListener('input', () => {
             if (passInput.value === "04012026") {
                 passwordScreen.style.opacity = '0';
