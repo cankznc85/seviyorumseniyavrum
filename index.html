@@ -7,92 +7,65 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        
         body, html {
-            width: 100%; height: 100%;
-            font-family: 'Poppins', sans-serif;
-            background: #050505; color: #ffffff;
-            display: flex; justify-content: center; align-items: center;
-            overflow: hidden; touch-action: none;
+            width: 100%; height: 100%; font-family: 'Poppins', sans-serif;
+            background: #050505; color: #ffffff; display: flex; 
+            justify-content: center; align-items: center; overflow: hidden; touch-action: none;
         }
-
-        /* SES PANELI */
         #audio-controls {
-            position: fixed; top: 20px; right: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px 15px; border-radius: 50px;
-            display: flex; align-items: center; gap: 10px;
-            backdrop-filter: blur(10px); border: 1px solid rgba(255, 105, 180, 0.2);
-            z-index: 100;
+            position: fixed; top: 20px; right: 20px; background: rgba(255, 255, 255, 0.05);
+            padding: 10px 15px; border-radius: 50px; display: flex; align-items: center; 
+            gap: 10px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 105, 180, 0.2); z-index: 100;
         }
         #volume-slider { width: 70px; accent-color: #ff69b4; cursor: pointer; }
-
-        /* HAYALET KELİMELER */
         .floating-word {
-            position: absolute; color: rgba(255, 255, 255, 0.08);
-            font-weight: 600; pointer-events: none; z-index: 0;
-            white-space: nowrap; animation: floatAnim 8s ease-in-out infinite;
+            position: absolute; color: rgba(255, 255, 255, 0.08); font-weight: 600;
+            pointer-events: none; z-index: 0; white-space: nowrap; animation: floatAnim 8s infinite;
         }
         @keyframes floatAnim {
             0% { opacity: 0; transform: translateY(20px); }
-            20% { opacity: 1; } 80% { opacity: 1; }
+            20%, 80% { opacity: 1; }
             100% { opacity: 0; transform: translateY(-40px); }
         }
-
-        /* EKRANLAR */
-        #password-screen { text-align: center; transition: all 0.8s ease; z-index: 20; padding: 20px; }
-        .lock-icon { font-size: 3.5rem; margin-bottom: 25px; filter: drop-shadow(0 0 10px #ff69b4); }
+        #password-screen { text-align: center; transition: 0.8s; z-index: 20; }
         input {
             background: rgba(255, 255, 255, 0.02); border: 2.2px solid rgba(255, 105, 180, 0.4);
             padding: 15px; color: #ffffff; border-radius: 15px; font-size: 1.4rem;
             text-align: center; letter-spacing: 6px; width: 220px; outline: none;
         }
-
         #celebration-screen {
-            display: none; position: absolute; text-align: center; width: 100%; z-index: 30;
-            opacity: 0; transition: opacity 0.8s ease;
+            display: none; position: absolute; text-align: center; width: 100%; z-index: 30; opacity: 0; transition: 0.8s;
         }
-        .celeb-text { font-size: clamp(1.8rem, 8vw, 3rem); font-weight: 800; }
-        .celeb-text span { color: #ff69b4; text-shadow: 0 0 20px rgba(255, 105, 180, 0.5); }
-
+        .celeb-text span { color: #ff69b4; text-shadow: 0 0 20px rgba(255, 105, 180, 0.5); font-weight: 800; font-size: 2.5rem; }
         #main-content { 
             display: none; text-align: center; padding: 40px 20px; width: 92%; max-width: 500px; 
-            z-index: 10; opacity: 0; background: rgba(0, 0, 0, 0.4);
-            border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 10; opacity: 0; background: rgba(0, 0, 0, 0.4); border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
         }
-
         .header-text { font-size: 1.8rem; font-weight: 800; color: #ff69b4; margin-bottom: 25px; }
-        .zeynep-msg { font-size: clamp(1.1rem, 4.5vw, 1.5rem); font-weight: 300; line-height: 1.6; margin-bottom: 35px; }
-        
         #timer { display: flex; justify-content: space-between; gap: 8px; }
-        .time-box {
-            background: rgba(0, 0, 0, 0.5); flex: 1; padding: 15px 2px; border-radius: 12px;
-            border: 1px solid rgba(255, 105, 180, 0.1);
-        }
+        .time-box { background: rgba(0,0,0,0.5); flex: 1; padding: 15px 2px; border-radius: 12px; border: 1px solid rgba(255,105,180,0.1); }
         .time-box b { font-size: 1.4rem; display: block; color: #ff69b4; }
-        .time-box span { font-size: 0.55rem; color: #ffffff; text-transform: uppercase; opacity: 0.8; }
-
         .click-heart { position: absolute; pointer-events: none; animation: moveUp 1s forwards; font-size: 24px; z-index: 999; }
-        @keyframes moveUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-120px); opacity: 0; } }
+        @keyframes moveUp { 0% { transform: scale(1); opacity: 1; } 100% { transform: translateY(-100px) scale(1.5); opacity: 0; } }
     </style>
 </head>
-<body onclick="initMusic()">
+<body onmousedown="initMusic()" ontouchstart="initMusic()">
 
-    <audio id="mySong" loop preload="auto">
+    <audio id="mySong" loop>
         <source src="sarki.mp3" type="audio/mpeg">
     </audio>
 
     <div id="audio-controls">
-        <span style="font-size: 1rem;">🎵</span>
+        <span>🎵</span>
         <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.30">
     </div>
 
     <div id="bg-layer"></div>
 
     <div id="password-screen">
-        <div class="lock-icon">🔒</div>
-        <input type="password" id="passInput" placeholder="••••" maxlength="8" autocomplete="off">
+        <div style="font-size:3rem; margin-bottom:20px;">🔒</div>
+        <input type="password" id="passInput" placeholder="••••" maxlength="8">
     </div>
 
     <div id="celebration-screen">
@@ -101,103 +74,97 @@
 
     <div id="main-content">
         <div class="header-text">Zeynep Birtanem</div>
-        <div class="zeynep-msg">
-            İyi ki varsın yavrum, sadece bugün değil her gün senin günün. Seni çok seviyorum öpüyorum birtanem 💞
-        </div>
+        <p style="margin-bottom:30px; line-height:1.6;">İyi ki varsın yavrum, sadece bugün değil her gün senin günün. Seni çok seviyorum 💞</p>
         <div id="timer">
-            <div class="time-box"><b id="days">00</b><span>Gün</span></div>
-            <div class="time-box"><b id="hours">00</b><span>Saat</span></div>
-            <div class="time-box"><b id="minutes">00</b><span>Dakika</span></div>
-            <div class="time-box"><b id="seconds">00</b><span>Saniye</span></div>
+            <div class="time-box"><b id="days">00</b><span style="font-size:10px">Gün</span></div>
+            <div class="time-box"><b id="hours">00</b><span style="font-size:10px">Saat</span></div>
+            <div class="time-box"><b id="minutes">00</b><span style="font-size:10px">Dk</span></div>
+            <div class="time-box"><b id="seconds">00</b><span style="font-size:10px">Sn</span></div>
         </div>
     </div>
 
     <script>
         const song = document.getElementById('mySong');
-        const volSlider = document.getElementById('volume-slider');
-        const passInput = document.getElementById('passInput');
-        const words = ["Yavrum", "Birtanem", "Her şeyim", "Aşkım", "Seni çok seviyorum", "Eşşek"];
         let musicStarted = false;
 
         function initMusic() {
             if (!musicStarted) {
-                song.currentTime = 60; // 1. dakikadan (60 saniye) başlat
+                song.currentTime = 60; // 1. Dakikadan başlat
                 song.volume = 0.30;
-                song.play();
-                musicStarted = true;
+                let playPromise = song.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => { musicStarted = true; }).catch(err => { console.log("Oynatma hatası:", err); });
+                }
             }
         }
 
-        volSlider.addEventListener('input', (e) => { song.volume = e.target.value; });
-
-        function createFloatingWord() {
-            if (document.getElementById('main-content').style.display !== 'block') return;
-            const word = document.createElement('div');
-            word.className = 'floating-word';
-            word.innerText = words[Math.floor(Math.random() * words.length)];
-            word.style.left = Math.random() * 80 + 10 + '%';
-            word.style.top = Math.random() * 80 + 10 + '%';
-            document.getElementById('bg-layer').appendChild(word);
-            setTimeout(() => word.remove(), 8000);
-        }
+        document.getElementById('volume-slider').oninput = (e) => { song.volume = e.target.value; };
 
         function spawnHeart(x, y) {
             const heart = document.createElement('div');
             heart.className = 'click-heart';
             heart.innerHTML = '💗';
-            heart.style.left = x + 'px'; heart.style.top = y + 'px';
+            heart.style.left = (x - 12) + 'px';
+            heart.style.top = (y - 12) + 'px';
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 1000);
         }
 
-        window.addEventListener('touchstart', (e) => {
-            initMusic();
+        // TAKİP ETME (Sürükleme) ÖZELLİĞİ
+        const handleMove = (e) => {
             if (document.getElementById('main-content').style.display === 'block') {
-                spawnHeart(e.touches[0].clientX, e.touches[0].clientY);
+                const x = e.touches ? e.touches[0].clientX : e.clientX;
+                const y = e.touches ? e.touches[0].clientY : e.clientY;
+                spawnHeart(x, y);
             }
-        });
+        };
 
-        window.addEventListener('mousedown', (e) => {
-            initMusic();
-            if (document.getElementById('main-content').style.display === 'block') {
-                spawnHeart(e.clientX, e.clientY);
-            }
-        });
+        window.addEventListener('mousemove', (e) => { if(e.buttons > 0) handleMove(e); }); // Mouse basılıyken
+        window.addEventListener('touchmove', (e) => { e.preventDefault(); handleMove(e); }, { passive: false });
+        window.addEventListener('mousedown', handleMove); // Tek tıkla
+        window.addEventListener('touchstart', handleMove); // Tek dokunuşla
 
+        const passInput = document.getElementById('passInput');
         passInput.addEventListener('input', () => {
             if (passInput.value === "04012026") {
                 document.getElementById('password-screen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('password-screen').style.display = 'none';
                     const celeb = document.getElementById('celebration-screen');
-                    celeb.style.display = 'block';
-                    setTimeout(() => celeb.style.opacity = '1', 50);
+                    celeb.style.display = 'block'; setTimeout(() => celeb.style.opacity = '1', 50);
                     setTimeout(() => {
                         celeb.style.opacity = '0';
                         setTimeout(() => {
                             celeb.style.display = 'none';
                             const main = document.getElementById('main-content');
-                            main.style.display = 'block';
-                            main.style.opacity = '1';
-                            startRelationshipTimer();
+                            main.style.display = 'block'; setTimeout(() => main.style.opacity = '1', 50);
+                            startTimer();
                         }, 800);
                     }, 2500);
                 }, 800);
             }
         });
 
-        function startRelationshipTimer() {
+        function startTimer() {
             const relStart = new Date(2026, 0, 4, 0, 0, 0);
-            const els = { d: document.getElementById('days'), h: document.getElementById('hours'), m: document.getElementById('minutes'), s: document.getElementById('seconds') };
-            function update() {
+            setInterval(() => {
                 const diff = new Date() - relStart;
-                els.d.innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
-                els.h.innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
-                els.m.innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
-                els.s.innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-                requestAnimationFrame(update);
-            } update();
-            setInterval(createFloatingWord, 2000);
+                document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
+                document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+                document.getElementById('minutes').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
+                document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+            }, 1000);
+            
+            const words = ["Yavrum", "Birtanem", "Her şeyim", "Aşkım", "Seni çok seviyorum", "Eşşek"];
+            setInterval(() => {
+                const w = document.createElement('div');
+                w.className = 'floating-word';
+                w.innerText = words[Math.floor(Math.random()*words.length)];
+                w.style.left = Math.random()*80 + 10 + '%';
+                w.style.top = Math.random()*80 + 10 + '%';
+                document.getElementById('bg-layer').appendChild(w);
+                setTimeout(() => w.remove(), 8000);
+            }, 2000);
         }
     </script>
 </body>
