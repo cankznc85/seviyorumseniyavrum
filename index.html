@@ -10,44 +10,91 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         body, html { width: 100%; height: 100%; font-family: 'Poppins', sans-serif; background: var(--bg-dark); color: #ffffff; overflow: hidden; touch-action: none; }
 
-        /* SES PANELİ */
-        #audio-panel { position: fixed; top: 20px; right: 20px; background: rgba(255, 183, 206, 0.15); padding: 8px 15px; border-radius: 20px; display: flex; align-items: center; gap: 10px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 183, 206, 0.3); z-index: 2000; }
+        /* SES PANELİ - Üstte Sabit */
+        #audio-panel { 
+            position: fixed; top: 20px; right: 20px; 
+            background: rgba(255, 183, 206, 0.15); padding: 10px 15px; 
+            border-radius: 25px; display: flex; align-items: center; gap: 10px; 
+            backdrop-filter: blur(15px); border: 1px solid rgba(255, 183, 206, 0.3); 
+            z-index: 9999; 
+        }
         #volume-slider { width: 70px; accent-color: var(--soft-pink); cursor: pointer; }
 
-        /* HAYALET YAZILAR VE MEKTUPLAR */
-        .floating-item { position: absolute; color: var(--soft-pink); font-weight: 300; z-index: 1; font-size: 1.1rem; opacity: 0; animation: fadeMove 4s ease-in-out forwards; pointer-events: auto; }
-        .letter-item { cursor: pointer; font-size: 1.5rem; filter: drop-shadow(0 0 10px var(--soft-pink)); z-index: 2; }
-        
-        @keyframes fadeMove {
-            0% { opacity: 0; transform: translateY(20px) scale(0.8); }
-            30% { opacity: 0.6; }
-            70% { opacity: 0.6; }
-            100% { opacity: 0; transform: translateY(-60px) scale(1.1); }
+        /* GENEL WRAPPER */
+        #wrapper { 
+            height: 100%; width: 100%; 
+            display: flex; align-items: center; justify-content: center; 
+            position: relative; z-index: 100; 
         }
 
-        /* İLTİFAT POPUP */
-        #compliment-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); background: rgba(255, 183, 206, 0.2); backdrop-filter: blur(20px); padding: 20px; border-radius: 20px; border: 1px solid var(--soft-pink); color: #fff; text-align: center; z-index: 3000; opacity: 0; pointer-events: none; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        #compliment-popup.active { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
+        /* ŞİFRE EKRANI */
+        #password-screen { 
+            position: absolute; text-align: center; 
+            transition: opacity 1s ease, visibility 1s; z-index: 500; 
+        }
+        input[type="password"] { 
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--soft-pink); 
+            padding: 15px; color: #ffffff; border-radius: 15px; 
+            font-size: 1.5rem; text-align: center; letter-spacing: 5px; 
+            width: 220px; outline: none; box-shadow: 0 0 15px rgba(255, 183, 206, 0.2);
+        }
 
         /* ANA İÇERİK */
-        #password-screen { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; transition: 1s; }
-        input { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--soft-pink); padding: 12px; color: #ffffff; border-radius: 12px; font-size: 1.2rem; text-align: center; letter-spacing: 5px; width: 180px; outline: none; }
+        #main-content { 
+            display: none; text-align: center; padding: 30px; 
+            width: 90%; max-width: 400px; opacity: 0; 
+            background: rgba(255, 255, 255, 0.03); border-radius: 30px; 
+            border: 1px solid rgba(255, 183, 206, 0.2); 
+            backdrop-filter: blur(20px); transition: opacity 1.5s ease; 
+        }
+        .header-text { font-size: 2rem; font-weight: 800; color: var(--soft-pink); margin-bottom: 20px; }
+        
+        /* SAYAÇ DÜZENİ */
+        #timer { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .time-box { 
+            background: rgba(255, 183, 206, 0.15); padding: 12px; 
+            border-radius: 15px; min-width: 65px; 
+            border: 1px solid rgba(255, 183, 206, 0.1);
+        }
+        .time-box b { font-size: 1.2rem; display: block; color: var(--soft-pink); }
+        .time-box span { font-size: 9px; text-transform: uppercase; opacity: 0.7; letter-spacing: 1px; }
 
-        #main-content { display: none; text-align: center; padding: 30px 20px; width: 90%; max-width: 400px; position: relative; z-index: 50; opacity: 0; background: rgba(255, 255, 255, 0.02); border-radius: 25px; border: 1px solid rgba(255, 183, 206, 0.2); backdrop-filter: blur(15px); transition: 1s; margin: auto; }
-        .header-text { font-size: 1.8rem; font-weight: 800; color: var(--soft-pink); margin-bottom: 20px; }
+        /* MEKTUP POPUP */
+        #compliment-popup { 
+            position: fixed; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%) scale(0.7); 
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(25px); 
+            padding: 35px 25px; border-radius: 25px; 
+            border: 1px solid var(--soft-pink); color: #fff; 
+            text-align: center; z-index: 10000; opacity: 0; 
+            pointer-events: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 0 0 50px rgba(255, 183, 206, 0.3); 
+            width: 85%; max-width: 320px; 
+        }
+        #compliment-popup.active { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
 
-        /* SAYAÇ */
-        #timer { display: flex; justify-content: center; gap: 8px; }
-        .time-box { background: rgba(255, 183, 206, 0.1); padding: 10px; border-radius: 12px; min-width: 60px; }
-        .time-box b { font-size: 1.1rem; display: block; color: var(--soft-pink); }
-        .time-box span { font-size: 8px; text-transform: uppercase; opacity: 0.6; }
+        /* ANİMASYONLU ELEMENTLER */
+        .floating-item { position: absolute; color: var(--soft-pink); font-weight: 300; z-index: 50; pointer-events: auto; }
+        .letter-item { cursor: pointer; font-size: 2.5rem; filter: drop-shadow(0 0 10px var(--soft-pink)); z-index: 60; }
+        
+        @keyframes fadeMove { 
+            0% { opacity: 0; transform: translateY(30px); } 
+            20% { opacity: 0.8; } 
+            80% { opacity: 0.8; } 
+            100% { opacity: 0; transform: translateY(-120px); } 
+        }
 
-        /* KALP EFEKTİ */
-        .click-heart { position: absolute; pointer-events: none; color: var(--soft-pink); font-size: 22px; z-index: 9999; animation: heartAnim 1s ease-out forwards; }
-        @keyframes heartAnim { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(1.5) translateY(-120px); opacity: 0; } }
+        .click-heart { 
+            position: absolute; pointer-events: none; color: var(--soft-pink); 
+            font-size: 24px; z-index: 10001; animation: heartAnim 0.8s ease-out forwards; 
+        }
+        @keyframes heartAnim { 
+            0% { transform: scale(0.5); opacity: 1; } 
+            100% { transform: scale(2) translateY(-150px); opacity: 0; } 
+        }
     </style>
 </head>
-<body onclick="forceMusic()">
+<body onclick="handleInteraction(event)" ontouchstart="handleInteraction(event)">
 
     <audio id="bgMusic" loop preload="auto"><source src="sarki.mp3" type="audio/mpeg"></audio>
 
@@ -56,120 +103,133 @@
         <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.50">
     </div>
 
-    <div id="password-screen">
-        <div style="font-size: 3rem; margin-bottom:20px; filter: drop-shadow(0 0 15px var(--soft-pink));">🔒</div>
-        <input type="password" id="passInput" placeholder="••••" maxlength="8" inputmode="numeric">
+    <div id="wrapper">
+        <div id="password-screen">
+            <div style="font-size: 4rem; margin-bottom:20px; filter: drop-shadow(0 0 20px var(--soft-pink));">🔒</div>
+            <input type="password" id="passInput" placeholder="••••" maxlength="8" inputmode="numeric">
+            <p style="margin-top: 15px; font-size: 0.8rem; opacity: 0.5;">Kalbinin anahtarını gir...</p>
+        </div>
+
+        <div id="main-content">
+            <div class="header-text">Yavrum....</div>
+            <p style="margin-bottom:25px; font-weight: 300; font-size: 0.95rem; opacity: 0.9; line-height: 1.7;">
+                İyi ki varsın yavrum, sadece bugün değil her gün senin günün. Seni çok seviyorum öpüyorum birtanem 💞
+            </p>
+            <div id="timer">
+                <div class="time-box"><b id="days">00</b><span>Gün</span></div>
+                <div class="time-box"><b id="hours">00</b><span>Saat</span></div>
+                <div class="time-box"><b id="minutes">00</b><span>Dk</span></div>
+                <div class="time-box"><b id="seconds">00</b><span>Sn</span></div>
+            </div>
+        </div>
     </div>
 
     <div id="compliment-popup">Gülüşüne kurban olurum! ❤️</div>
 
-    <div id="main-content">
-        <div class="header-text">Yavrum....</div>
-        <p style="margin-bottom:30px; font-weight: 300; font-size: 0.9rem; opacity: 0.9; line-height: 1.6;">
-            İyi ki varsın yavrum, sadece bugün değil her gün senin günün. Seni çok seviyorum öpüyorum birtanem 💞
-        </p>
-        <div id="timer">
-            <div class="time-box"><b id="days">00</b><span>Gün</span></div>
-            <div class="time-box"><b id="hours">00</b><span>Saat</span></div>
-            <div class="time-box"><b id="minutes">00</b><span>Dk</span></div>
-            <div class="time-box"><b id="seconds">00</b><span>Sn</span></div>
-        </div>
-    </div>
-
     <script>
         const song = document.getElementById('bgMusic');
         const volSlider = document.getElementById('volume-slider');
-        let isMusicPlaying = false;
+        const popup = document.getElementById('compliment-popup');
+        const passInput = document.getElementById('passInput');
+        let isMusicStarted = false;
 
-        function forceMusic() {
-            if (!isMusicPlaying) {
+        // ETKİLEŞİM YÖNETİMİ
+        function handleInteraction(e) {
+            // 1. Müzik Başlat (İlk dokunuşta)
+            if (!isMusicStarted) {
                 song.volume = volSlider.value;
-                song.play().then(() => { isMusicPlaying = true; }).catch(() => {});
+                song.play().then(() => { isMusicStarted = true; }).catch(() => {});
             }
+
+            // 2. Popup Kapatma (Dışarı tıklandığında)
+            if (popup.classList.contains('active')) {
+                if (!e.target.classList.contains('letter-item')) {
+                    popup.classList.remove('active');
+                }
+            }
+
+            // 3. Kalp Efekti
+            let posX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+            let posY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+            if(posX && posY) spawnHeart(posX, posY);
         }
 
+        // Ses Ayarı (Kapatma/Açma sırasında kalp çıkmaması için stopPropagation)
         volSlider.oninput = (e) => { song.volume = e.target.value; };
+        volSlider.onclick = (e) => e.stopPropagation();
 
-        // KALBİ HER YERDE TAKİP ETME (FIXED)
         function spawnHeart(x, y) {
             const heart = document.createElement('div');
             heart.className = 'click-heart';
             heart.innerHTML = '🤍';
-            heart.style.left = (x - 10) + 'px';
-            heart.style.top = (y - 10) + 'px';
+            heart.style.left = (x - 12) + 'px';
+            heart.style.top = (y - 12) + 'px';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 1000);
+            setTimeout(() => heart.remove(), 800);
         }
 
-        document.addEventListener('mousemove', (e) => { if (e.buttons > 0) spawnHeart(e.clientX, e.clientY); });
-        document.addEventListener('touchmove', (e) => { spawnHeart(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
-        document.addEventListener('mousedown', (e) => spawnHeart(e.clientX, e.clientY));
-
-        // ŞİFRE VE GEÇİŞ
-        document.getElementById('passInput').addEventListener('input', function() {
+        // ŞİFRE KONTROLÜ
+        passInput.addEventListener('input', function() {
             if (this.value === "04012026") {
                 document.getElementById('password-screen').style.opacity = '0';
+                document.getElementById('password-screen').style.pointerEvents = 'none';
+                
                 setTimeout(() => {
                     document.getElementById('password-screen').style.display = 'none';
                     const main = document.getElementById('main-content');
                     main.style.display = 'block';
                     setTimeout(() => main.style.opacity = '1', 50);
-                    initSite();
+                    initExperience();
                 }, 1000);
             }
         });
 
-        function initSite() {
-            // SAYAÇ (04.01.2026'ya göre)
-            const relStart = new Date(2026, 0, 4);
+        function initExperience() {
+            // SAYAÇ: 4 Ocak 2026
+            const startDate = new Date(2026, 0, 4); 
+            
             setInterval(() => {
-                const diff = new Date() - relStart;
+                const now = new Date();
+                const diff = now - startDate;
+
                 document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
                 document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
                 document.getElementById('minutes').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
                 document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
             }, 1000);
 
-            // HAYALET YAZILAR VE MEKTUPLAR
-            const words = ["Yavrum", "Birtanem", "Her şeyim", "Aşkım", "Seni Seviyorum", "Eşşek :)"];
+            const words = ["Yavrum", "Birtanem", "Aşkım", "Her şeyim", "Seni Seviyorum", "Gülüşün ✨", "Dünyam"];
             const compliments = [
-                "Gülüşüne kurban olurum! ❤️",
-                "Dünyanın en güzel kalbi sende...",
-                "Bakışların ömre bedel yavrum.",
-                "Sen benim en güzel dualarımsın.",
-                "İyi ki benimlesin, her şeyim."
+                "Gülüşüne kurban olurum! ❤️", 
+                "Dünyanın en güzel kalbi sende...", 
+                "Bakışların ömre bedel yavrum.", 
+                "Sen benim en güzel dualarımsın.", 
+                "İyi ki benimlesin, her şeyim.",
+                "Gözlerinde kaybolmak en sevdiğim şey..."
             ];
 
-            // Kelime üretici (Her 1.5 saniyede)
-            setInterval(() => {
-                createFloatingItem(words[Math.floor(Math.random() * words.length)], false);
-            }, 1500);
-
-            // Mektup üretici (Her 8-9 saniyede)
-            setInterval(() => {
-                createFloatingItem('✉️', true);
-            }, 8500);
+            // Kelimeler ve Mektuplar
+            setInterval(() => createFloatingItem(words[Math.floor(Math.random() * words.length)], false), 2500);
+            setInterval(() => createFloatingItem('✉️', true), 9000);
 
             function createFloatingItem(content, isLetter) {
                 const item = document.createElement('div');
                 item.className = 'floating-item' + (isLetter ? ' letter-item' : '');
                 item.innerHTML = content;
-                item.style.left = (Math.random() * 80 + 10) + '%';
-                item.style.top = (Math.random() * 70 + 15) + '%';
+                item.style.left = (Math.random() * 70 + 15) + '%';
+                item.style.top = (Math.random() * 50 + 25) + '%';
+                item.style.animation = 'fadeMove 4s ease-in-out forwards';
                 
                 if (isLetter) {
                     item.onclick = (e) => {
                         e.stopPropagation();
-                        const popup = document.getElementById('compliment-popup');
                         popup.innerText = compliments[Math.floor(Math.random() * compliments.length)];
                         popup.classList.add('active');
-                        setTimeout(() => popup.classList.remove('active'), 2500);
                         item.remove();
                     };
                 }
-                
                 document.body.appendChild(item);
-                setTimeout(() => item.remove(), 4000);
+                setTimeout(() => { if(item) item.remove(); }, 4000);
             }
         }
     </script>
