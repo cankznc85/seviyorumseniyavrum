@@ -11,44 +11,52 @@
         body, html {
             width: 100%; height: 100%;
             font-family: 'Poppins', sans-serif;
-            background: #050505; /* Mat Siyah */
-            color: #ffffff; /* Ana Yazılar Beyaz */
+            background: #050505; 
+            color: #ffffff;
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; touch-action: none;
         }
 
-        /* Hafif Siyah Işıltı */
         .bg-glow {
             position: absolute; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #111 0%, #050505 85%);
             z-index: -1;
         }
 
-        /* ŞİFRE EKRANI (🔒) */
-        #password-screen { text-align: center; transition: all 1s ease; z-index: 20; padding: 20px; }
+        /* 1. ŞİFRE EKRANI */
+        #password-screen { text-align: center; transition: all 0.8s ease; z-index: 20; padding: 20px; }
         .lock-icon { font-size: 3.5rem; margin-bottom: 25px; filter: drop-shadow(0 0 10px #ff69b4); }
-        
         input {
-            background: rgba(255, 255, 255, 0.02); border: 2px solid rgba(255, 105, 180, 0.4);
+            background: rgba(255, 255, 255, 0.02); border: 2.2px solid rgba(255, 105, 180, 0.4);
             padding: 15px; color: #ffffff; border-radius: 15px;
             font-size: 1.4rem; text-align: center; letter-spacing: 6px;
             width: 220px; outline: none; transition: 0.3s;
         }
         input:focus { border-color: #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.3); }
 
-        /* ANA İÇERİK KUTUSU */
+        /* 2. ARA GEÇİŞ EKRANI (KUTLAMA) */
+        #celebration-screen {
+            display: none; position: absolute; text-align: center;
+            width: 100%; padding: 20px; z-index: 30;
+            opacity: 0; transition: opacity 0.8s ease;
+        }
+        .celeb-text {
+            font-size: clamp(1.8rem, 8vw, 3rem); font-weight: 800;
+            color: #ffffff; line-height: 1.2;
+        }
+        .celeb-text span { color: #ff69b4; text-shadow: 0 0 20px rgba(255, 105, 180, 0.5); }
+
+        /* 3. ANA İÇERİK KUTUSU */
         #main-content { 
             display: none; text-align: center; 
-            padding: 40px; width: 92%; max-width: 500px; 
+            padding: 40px 20px; width: 92%; max-width: 500px; 
             z-index: 10; opacity: 0; 
             background: rgba(255, 255, 255, 0.01);
             border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.05); /* Siyah-Beyaz Çerçeve */
+            border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
 
-        /* Pembe İmza Detay */
         .header-text {
             font-size: 1.8rem; font-weight: 800; color: #ff69b4;
             margin-bottom: 25px; letter-spacing: 1px;
@@ -56,42 +64,45 @@
         }
 
         .zeynep-msg { 
-            font-size: clamp(1.1rem, 4.5vw, 1.6rem); font-weight: 300; 
+            font-size: clamp(1.1rem, 4.5vw, 1.5rem); font-weight: 300; 
             color: #ffffff; line-height: 1.6; margin-bottom: 35px; 
         }
         
-        /* Sayaç */
         #timer { display: flex; justify-content: space-between; gap: 8px; }
         .time-box {
             background: rgba(0, 0, 0, 0.3);
-            flex: 1; padding: 15px 2px; border-radius: 15px;
+            flex: 1; padding: 15px 2px; border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.03);
         }
-        .time-box b { font-size: 1.6rem; display: block; color: #ff69b4; margin-bottom: 2px; } /* Pembe Sayılar */
-        .time-box span { font-size: 0.6rem; color: #ffffff; text-transform: uppercase; opacity: 0.8; font-weight: 600; }
+        .time-box b { font-size: 1.4rem; display: block; color: #ff69b4; margin-bottom: 2px; }
+        .time-box span { font-size: 0.55rem; color: #ffffff; text-transform: uppercase; opacity: 0.8; font-weight: 600; }
 
-        /* Zarif Pembe Kalpler */
+        /* Parmak Takibi Kalpleri */
         .click-heart {
             position: absolute; pointer-events: none;
-            animation: moveUp 1.2s ease-out forwards;
+            animation: moveUp 1s ease-out forwards;
             font-size: 24px; z-index: 999;
         }
         @keyframes moveUp {
-            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-130px) scale(1.4) rotate(15deg); opacity: 0; }
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-120px) scale(1.5); opacity: 0; }
         }
 
-        .show { animation: fadeIn 1.2s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeInAnim 1s ease-out forwards; }
+        @keyframes fadeInAnim { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
-<body onclick="createHeart(event)">
+<body>
 
     <div class="bg-glow"></div>
 
     <div id="password-screen">
         <div class="lock-icon">🔒</div>
         <input type="password" id="passInput" placeholder="••••" maxlength="8" autocomplete="off">
+    </div>
+
+    <div id="celebration-screen">
+        <div class="celeb-text">KADINLAR GÜNÜN<br><span>KUTLU OLSUN</span></div>
     </div>
 
     <div id="main-content">
@@ -109,6 +120,7 @@
 
     <script>
         const passwordScreen = document.getElementById('password-screen');
+        const celebScreen = document.getElementById('celebration-screen');
         const mainContent = document.getElementById('main-content');
         const passInput = document.getElementById('passInput');
         const hearts = ['💗', '💖', '💕', '❤️'];
@@ -120,7 +132,7 @@
             heart.style.left = (x - 12) + 'px';
             heart.style.top = (y - 12) + 'px';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 1200);
+            setTimeout(() => heart.remove(), 1000);
         }
 
         const handleInteraction = (e) => {
@@ -136,7 +148,6 @@
         window.addEventListener('mousedown', () => window.isMouseDown = true);
         window.addEventListener('mouseup', () => window.isMouseDown = false);
         window.addEventListener('mousemove', (e) => window.isMouseDown && handleInteraction(e));
-        window.addEventListener('click', handleInteraction);
         window.addEventListener('touchstart', handleInteraction);
         window.addEventListener('touchmove', (e) => { e.preventDefault(); handleInteraction(e); }, { passive: false });
 
@@ -159,12 +170,25 @@
 
         passInput.addEventListener('input', () => {
             if (passInput.value === "04012026") {
+                // Şifre doğru, ekranı karart
                 passwordScreen.style.opacity = '0';
+                
                 setTimeout(() => {
                     passwordScreen.style.display = 'none';
-                    mainContent.style.display = 'block';
-                    mainContent.classList.add('show');
-                    startRelationshipTimer();
+                    // Kutlama yazısını göster
+                    celebScreen.style.display = 'block';
+                    setTimeout(() => { celebScreen.style.opacity = '1'; }, 50);
+                    
+                    // 2.5 saniye sonra kutlamayı kaldır, ana içeriği getir
+                    setTimeout(() => {
+                        celebScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            celebScreen.style.display = 'none';
+                            mainContent.style.display = 'block';
+                            mainContent.classList.add('fade-in');
+                            startRelationshipTimer();
+                        }, 800);
+                    }, 2500);
                 }, 800);
             }
         });
