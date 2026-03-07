@@ -10,91 +10,47 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         body, html { width: 100%; height: 100%; font-family: 'Poppins', sans-serif; background: var(--bg-dark); color: #ffffff; overflow: hidden; touch-action: none; }
 
-        /* SES PANELİ - Üstte Sabit */
-        #audio-panel { 
-            position: fixed; top: 20px; right: 20px; 
-            background: rgba(255, 183, 206, 0.15); padding: 10px 15px; 
-            border-radius: 25px; display: flex; align-items: center; gap: 10px; 
-            backdrop-filter: blur(15px); border: 1px solid rgba(255, 183, 206, 0.3); 
-            z-index: 9999; 
-        }
-        #volume-slider { width: 70px; accent-color: var(--soft-pink); cursor: pointer; }
+        /* SES PANELİ */
+        #audio-panel { position: fixed; top: 20px; right: 20px; background: rgba(255, 183, 206, 0.15); padding: 8px 15px; border-radius: 25px; display: flex; align-items: center; gap: 10px; backdrop-filter: blur(15px); border: 1px solid rgba(255, 183, 206, 0.3); z-index: 20000; }
+        #volume-slider { width: 60px; accent-color: var(--soft-pink); cursor: pointer; }
 
-        /* GENEL WRAPPER */
-        #wrapper { 
-            height: 100%; width: 100%; 
-            display: flex; align-items: center; justify-content: center; 
-            position: relative; z-index: 100; 
-        }
+        /* ANA EKRAN */
+        #wrapper { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
 
-        /* ŞİFRE EKRANI */
-        #password-screen { 
-            position: absolute; text-align: center; 
-            transition: opacity 1s ease, visibility 1s; z-index: 500; 
-        }
-        input[type="password"] { 
-            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--soft-pink); 
-            padding: 15px; color: #ffffff; border-radius: 15px; 
-            font-size: 1.5rem; text-align: center; letter-spacing: 5px; 
-            width: 220px; outline: none; box-shadow: 0 0 15px rgba(255, 183, 206, 0.2);
-        }
+        /* ŞİFRE */
+        #password-screen { position: absolute; text-align: center; z-index: 15000; transition: 1s; }
+        input[type="password"] { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--soft-pink); padding: 15px; color: #ffffff; border-radius: 15px; font-size: 1.5rem; text-align: center; letter-spacing: 5px; width: 200px; outline: none; }
 
-        /* ANA İÇERİK */
-        #main-content { 
-            display: none; text-align: center; padding: 30px; 
-            width: 90%; max-width: 400px; opacity: 0; 
-            background: rgba(255, 255, 255, 0.03); border-radius: 30px; 
-            border: 1px solid rgba(255, 183, 206, 0.2); 
-            backdrop-filter: blur(20px); transition: opacity 1.5s ease; 
-        }
-        .header-text { font-size: 2rem; font-weight: 800; color: var(--soft-pink); margin-bottom: 20px; }
-        
-        /* SAYAÇ DÜZENİ */
-        #timer { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
-        .time-box { 
-            background: rgba(255, 183, 206, 0.15); padding: 12px; 
-            border-radius: 15px; min-width: 65px; 
-            border: 1px solid rgba(255, 183, 206, 0.1);
-        }
-        .time-box b { font-size: 1.2rem; display: block; color: var(--soft-pink); }
-        .time-box span { font-size: 9px; text-transform: uppercase; opacity: 0.7; letter-spacing: 1px; }
+        /* MESAJ KUTUSU */
+        #main-content { display: none; text-align: center; padding: 30px; width: 85%; max-width: 380px; opacity: 0; background: rgba(20, 20, 20, 0.7); border-radius: 30px; border: 1px solid rgba(255, 183, 206, 0.2); backdrop-filter: blur(10px); transition: 1.5s; z-index: 5000; position: relative; pointer-events: auto; }
+        .header-text { font-size: 1.8rem; font-weight: 800; color: var(--soft-pink); margin-bottom: 15px; }
 
-        /* MEKTUP POPUP */
-        #compliment-popup { 
-            position: fixed; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%) scale(0.7); 
-            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(25px); 
-            padding: 35px 25px; border-radius: 25px; 
-            border: 1px solid var(--soft-pink); color: #fff; 
-            text-align: center; z-index: 10000; opacity: 0; 
-            pointer-events: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            box-shadow: 0 0 50px rgba(255, 183, 206, 0.3); 
-            width: 85%; max-width: 320px; 
-        }
+        /* SAYAÇ */
+        #timer { display: flex; justify-content: center; gap: 8px; }
+        .time-box { background: rgba(255, 183, 206, 0.1); padding: 10px; border-radius: 12px; min-width: 60px; }
+        .time-box b { font-size: 1.1rem; display: block; color: var(--soft-pink); }
+        .time-box span { font-size: 8px; text-transform: uppercase; opacity: 0.6; }
+
+        /* POPUP (EN ÜSTTE) */
+        #compliment-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); background: #0a0a0a; padding: 30px; border-radius: 25px; border: 1px solid var(--soft-pink); color: #fff; text-align: center; z-index: 30000; opacity: 0; pointer-events: none; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 85%; box-shadow: 0 0 30px rgba(255, 183, 206, 0.4); }
         #compliment-popup.active { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
 
-        /* ANİMASYONLU ELEMENTLER */
-        .floating-item { position: absolute; color: var(--soft-pink); font-weight: 300; z-index: 50; pointer-events: auto; }
-        .letter-item { cursor: pointer; font-size: 2.5rem; filter: drop-shadow(0 0 10px var(--soft-pink)); z-index: 60; }
+        /* HAYALET YAZILAR VE MEKTUPLAR (ÖN PLANDA) */
+        .floating-item { position: absolute; color: var(--soft-pink); font-weight: 300; z-index: 10000; opacity: 0; animation: fadeMove 5s ease-in-out forwards; white-space: nowrap; pointer-events: auto; }
+        .letter-item { cursor: pointer; font-size: 2.2rem; filter: drop-shadow(0 0 10px var(--soft-pink)); z-index: 11000; }
         
         @keyframes fadeMove { 
-            0% { opacity: 0; transform: translateY(30px); } 
-            20% { opacity: 0.8; } 
-            80% { opacity: 0.8; } 
-            100% { opacity: 0; transform: translateY(-120px); } 
+            0% { opacity: 0; transform: translateY(30px) scale(0.9); } 
+            25% { opacity: 0.7; } 
+            75% { opacity: 0.7; } 
+            100% { opacity: 0; transform: translateY(-120px) scale(1.1); } 
         }
 
-        .click-heart { 
-            position: absolute; pointer-events: none; color: var(--soft-pink); 
-            font-size: 24px; z-index: 10001; animation: heartAnim 0.8s ease-out forwards; 
-        }
-        @keyframes heartAnim { 
-            0% { transform: scale(0.5); opacity: 1; } 
-            100% { transform: scale(2) translateY(-150px); opacity: 0; } 
-        }
+        .click-heart { position: absolute; pointer-events: none; color: var(--soft-pink); font-size: 22px; z-index: 25000; animation: heartAnim 0.8s ease-out forwards; }
+        @keyframes heartAnim { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(2) translateY(-150px); opacity: 0; } }
     </style>
 </head>
-<body onclick="handleInteraction(event)" ontouchstart="handleInteraction(event)">
+<body onclick="handleGlobalInteraction(event)" ontouchstart="handleGlobalInteraction(event)">
 
     <audio id="bgMusic" loop preload="auto"><source src="sarki.mp3" type="audio/mpeg"></audio>
 
@@ -105,14 +61,13 @@
 
     <div id="wrapper">
         <div id="password-screen">
-            <div style="font-size: 4rem; margin-bottom:20px; filter: drop-shadow(0 0 20px var(--soft-pink));">🔒</div>
+            <div style="font-size: 3.5rem; margin-bottom:20px;">🔒</div>
             <input type="password" id="passInput" placeholder="••••" maxlength="8" inputmode="numeric">
-            <p style="margin-top: 15px; font-size: 0.8rem; opacity: 0.5;">Kalbinin anahtarını gir...</p>
         </div>
 
         <div id="main-content">
             <div class="header-text">Yavrum....</div>
-            <p style="margin-bottom:25px; font-weight: 300; font-size: 0.95rem; opacity: 0.9; line-height: 1.7;">
+            <p style="margin-bottom:25px; font-weight: 300; font-size: 0.95rem; line-height: 1.6;">
                 İyi ki varsın yavrum, sadece bugün değil her gün senin günün. Seni çok seviyorum öpüyorum birtanem 💞
             </p>
             <div id="timer">
@@ -130,95 +85,72 @@
         const song = document.getElementById('bgMusic');
         const volSlider = document.getElementById('volume-slider');
         const popup = document.getElementById('compliment-popup');
-        const passInput = document.getElementById('passInput');
-        let isMusicStarted = false;
+        let isStarted = false;
 
-        // ETKİLEŞİM YÖNETİMİ
-        function handleInteraction(e) {
-            // 1. Müzik Başlat (İlk dokunuşta)
-            if (!isMusicStarted) {
+        function handleGlobalInteraction(e) {
+            if (!isStarted) {
                 song.volume = volSlider.value;
-                song.play().then(() => { isMusicStarted = true; }).catch(() => {});
+                song.play().then(() => { isStarted = true; }).catch(() => {});
             }
-
-            // 2. Popup Kapatma (Dışarı tıklandığında)
-            if (popup.classList.contains('active')) {
-                if (!e.target.classList.contains('letter-item')) {
-                    popup.classList.remove('active');
-                }
+            if (popup.classList.contains('active') && !e.target.classList.contains('letter-item')) {
+                popup.classList.remove('active');
             }
-
-            // 3. Kalp Efekti
-            let posX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-            let posY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-            if(posX && posY) spawnHeart(posX, posY);
+            let x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+            let y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+            if(x && y) spawnHeart(x, y);
         }
 
-        // Ses Ayarı (Kapatma/Açma sırasında kalp çıkmaması için stopPropagation)
-        volSlider.oninput = (e) => { song.volume = e.target.value; };
         volSlider.onclick = (e) => e.stopPropagation();
 
         function spawnHeart(x, y) {
             const heart = document.createElement('div');
             heart.className = 'click-heart';
             heart.innerHTML = '🤍';
-            heart.style.left = (x - 12) + 'px';
-            heart.style.top = (y - 12) + 'px';
+            heart.style.left = (x - 10) + 'px';
+            heart.style.top = (y - 10) + 'px';
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 800);
         }
 
-        // ŞİFRE KONTROLÜ
-        passInput.addEventListener('input', function() {
+        document.getElementById('passInput').addEventListener('input', function() {
             if (this.value === "04012026") {
                 document.getElementById('password-screen').style.opacity = '0';
-                document.getElementById('password-screen').style.pointerEvents = 'none';
-                
                 setTimeout(() => {
                     document.getElementById('password-screen').style.display = 'none';
                     const main = document.getElementById('main-content');
                     main.style.display = 'block';
                     setTimeout(() => main.style.opacity = '1', 50);
-                    initExperience();
+                    startExperience();
                 }, 1000);
             }
         });
 
-        function initExperience() {
-            // SAYAÇ: 4 Ocak 2026
+        function startExperience() {
             const startDate = new Date(2026, 0, 4); 
-            
             setInterval(() => {
-                const now = new Date();
-                const diff = now - startDate;
-
+                const diff = new Date() - startDate;
                 document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
                 document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
                 document.getElementById('minutes').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
                 document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
             }, 1000);
 
-            const words = ["Yavrum", "Birtanem", "Aşkım", "Her şeyim", "Seni Seviyorum", "Gülüşün ✨", "Dünyam"];
-            const compliments = [
-                "Gülüşüne kurban olurum! ❤️", 
-                "Dünyanın en güzel kalbi sende...", 
-                "Bakışların ömre bedel yavrum.", 
-                "Sen benim en güzel dualarımsın.", 
-                "İyi ki benimlesin, her şeyim.",
-                "Gözlerinde kaybolmak en sevdiğim şey..."
-            ];
+            const words = ["Yavrum", "Birtanem", "Her şeyim", "Eşşek :)"];
+            const compliments = ["Gülüşüne kurban olurum! ❤️", "Dünyanın en güzel kalbi sende...", "Bakışların ömre bedel yavrum.", "Sen benim en güzel dualarımsın.", "İyi ki benimlesin."];
 
-            // Kelimeler ve Mektuplar
+            // Kelimeler (Yazıların üstünde gezinecekler)
             setInterval(() => createFloatingItem(words[Math.floor(Math.random() * words.length)], false), 2500);
+            // Mektuplar
             setInterval(() => createFloatingItem('✉️', true), 9000);
 
             function createFloatingItem(content, isLetter) {
                 const item = document.createElement('div');
                 item.className = 'floating-item' + (isLetter ? ' letter-item' : '');
                 item.innerHTML = content;
-                item.style.left = (Math.random() * 70 + 15) + '%';
-                item.style.top = (Math.random() * 50 + 25) + '%';
-                item.style.animation = 'fadeMove 4s ease-in-out forwards';
+                
+                // Ekranın tamamına yayılması için %5 - %85 arası rastgele konum
+                item.style.left = (Math.random() * 80 + 5) + '%';
+                item.style.top = (Math.random() * 70 + 10) + '%';
                 
                 if (isLetter) {
                     item.onclick = (e) => {
@@ -229,7 +161,7 @@
                     };
                 }
                 document.body.appendChild(item);
-                setTimeout(() => { if(item) item.remove(); }, 4000);
+                setTimeout(() => { if(item) item.remove(); }, 5000);
             }
         }
     </script>
