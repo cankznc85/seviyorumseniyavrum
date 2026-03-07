@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zeynep için Özel ✨</title>
+    <title>Zeynep ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -15,48 +15,44 @@
             overflow: hidden; touch-action: manipulation;
         }
 
-        /* Arka Plan Neon Efekti */
+        /* Arka Plan Neon Mor Işıltı */
         .bg-glow {
             position: absolute; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #2e0854 0%, #050505 85%);
             z-index: -1; opacity: 0.7;
         }
 
-        /* 1. EKRAN: SAYAÇ */
-        #loading-screen { text-align: center; width: 100%; transition: opacity 0.8s ease; }
-        #percent-text { 
-            font-size: clamp(2.5rem, 15vw, 5.5rem); 
-            font-weight: 800; color: #fff; 
-            text-shadow: 0 0 20px rgba(155, 89, 182, 0.6);
-            font-variant-numeric: tabular-nums;
-        }
-        .bar-container { 
-            width: 65%; max-width: 350px; height: 4px; 
-            background: rgba(255,255,255,0.05); margin: 20px auto; border-radius: 10px; overflow: hidden;
-        }
-        #bar { width: 0%; height: 100%; background: #9b59b6; box-shadow: 0 0 15px #9b59b6; transition: width 0.1s linear; }
-        .loading-msg { letter-spacing: 4px; color: #666; font-size: 0.65rem; text-transform: uppercase; font-weight: 600; }
-
-        /* 2. EKRAN: ŞİFRE */
-        #password-screen { display: none; text-align: center; opacity: 0; transition: opacity 0.8s ease; }
-        #password-screen .lock-icon { font-size: 3rem; margin-bottom: 15px; filter: drop-shadow(0 0 10px #9b59b6); }
+        /* 1. EKRAN: ŞİFRE GİRİŞİ */
+        #password-screen { text-align: center; transition: opacity 0.8s ease; z-index: 20; }
+        .lock-icon { font-size: 3.5rem; margin-bottom: 20px; filter: drop-shadow(0 0 15px #9b59b6); }
         input {
-            background: rgba(155, 89, 182, 0.05); border: 1.5px solid #9b59b6;
+            background: rgba(155, 89, 182, 0.05); border: 2px solid #9b59b6;
             padding: 15px; color: #fff; border-radius: 15px;
-            font-size: 1.4rem; text-align: center; letter-spacing: 6px;
-            width: 220px; outline: none; transition: 0.3s;
+            font-size: 1.5rem; text-align: center; letter-spacing: 6px;
+            width: 240px; outline: none; transition: 0.3s;
         }
-        input:focus { box-shadow: 0 0 25px rgba(155, 89, 182, 0.3); background: rgba(155, 89, 182, 0.1); }
+        input:focus { box-shadow: 0 0 25px rgba(155, 89, 182, 0.3); }
 
-        /* 3. EKRAN: ANA İÇERİK */
-        #main-content { display: none; text-align: center; padding: 25px; max-width: 500px; z-index: 10; opacity: 0; }
+        /* 2. EKRAN: ANA İÇERİK */
+        #main-content { 
+            display: none; text-align: center; padding: 25px; 
+            max-width: 500px; z-index: 10; opacity: 0; 
+        }
         .zeynep-msg { 
             font-size: clamp(1.3rem, 5vw, 2.1rem); font-weight: 600; color: #dcd0ff; 
             line-height: 1.5; margin-bottom: 30px; 
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         
-        /* Uçan Kalp Efekti */
+        #timer { 
+            font-size: 0.85rem; background: rgba(255, 255, 255, 0.03); 
+            padding: 25px; border-radius: 25px; 
+            border: 1px solid rgba(155, 89, 182, 0.2);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            line-height: 1.8; color: #eee;
+        }
+        #timer b { color: #9b59b6; font-size: 1.15rem; display: block; margin-bottom: 5px; }
+
+        /* Dokunmatik Kalp Efekti */
         .click-heart {
             position: absolute; pointer-events: none;
             animation: fly 0.8s ease-out forwards;
@@ -67,10 +63,10 @@
             100% { transform: translateY(-120px) scale(1.6) rotate(15deg); opacity: 0; }
         }
 
-        /* Geçiş Animasyonu */
+        /* İçerik Açılış Animasyonu */
         .show { animation: slideUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
         @keyframes slideUp { 
-            from { opacity: 0; transform: translateY(40px); } 
+            from { opacity: 0; transform: translateY(50px); } 
             to { opacity: 1; transform: translateY(0); } 
         }
     </style>
@@ -79,33 +75,27 @@
 
     <div class="bg-glow"></div>
 
-    <div id="loading-screen">
-        <div id="percent-text">%00.0000</div>
-        <div class="bar-container"><div id="bar"></div></div>
-        <p class="loading-msg">Zeynep için Özel Sistem Hazırlanıyor</p>
-    </div>
-
     <div id="password-screen">
         <div class="lock-icon">🔒</div>
-        <p style="letter-spacing: 2px; color: #9b59b6; font-size: 0.75rem; margin-bottom: 15px;">ERİŞİM ŞİFRESİNİ GİRİN</p>
+        <p style="letter-spacing: 2px; color: #9b59b6; font-size: 0.8rem; margin-bottom: 20px; font-weight: 600;">ERİŞİM ŞİFRESİNİ GİRİN</p>
         <input type="password" id="passInput" placeholder="••••••••" maxlength="8" autocomplete="off">
     </div>
 
     <div id="main-content">
-        <div style="font-size: 3.5rem; margin-bottom: 15px;">💞</div>
+        <div style="font-size: 3.5rem; margin-bottom: 20px;">💞</div>
         <div class="zeynep-msg">
             İyi ki varsın yavrum, sadece bugün değil her gün senin günün. Seni çok seviyorum öpüyorum birtanem 💞
         </div>
-        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 25px; letter-spacing: 1px;">(Ekrana dokunmayı dene birtanem...)</p>
+        <div id="timer"></div>
+        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 30px; letter-spacing: 1px;">(Ekrana dokunmayı dene birtanem...)</p>
     </div>
 
     <script>
-        const loadingScreen = document.getElementById('loading-screen');
         const passwordScreen = document.getElementById('password-screen');
         const mainContent = document.getElementById('main-content');
         const passInput = document.getElementById('passInput');
 
-        // Tıklama ile kalp oluşturma
+        // Ekrana dokununca kalp çıkması
         function createHeart(e) {
             if (mainContent.style.display === 'block') {
                 const heart = document.createElement('div');
@@ -118,37 +108,28 @@
             }
         }
 
-        function update() {
-            const now = new Date();
-            const year = now.getFullYear();
+        // 4 Ocak Sayacı Fonksiyonu
+        function startRelationshipTimer() {
+            const relStart = new Date(2026, 0, 4, 0, 0, 0); // 4 Ocak 2026
             
-            // HEDEF: 8 MART 2026 00:00:00
-            const end = new Date(year, 2, 8, 0, 0, 0); 
-            const start = new Date(year, 2, 7, 0, 0, 0); 
-            
-            if (now < end) {
-                const total = end - start;
-                const elapsed = now - start;
-                let progress = (elapsed / total) * 100;
-                if(progress < 0) progress = 0;
+            function update() {
+                const now = new Date();
+                const diff = now - relStart;
+                
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const m = Math.floor((diff / 1000 / 60) % 60);
+                const s = Math.floor((diff / 1000) % 60);
 
-                document.getElementById('percent-text').innerText = "%" + progress.toFixed(4);
-                document.getElementById('bar').style.width = progress + "%";
+                document.getElementById('timer').innerHTML = 
+                    `<b>${d} Gün, ${h} Saat, ${m} Dakika, ${s} Saniye</b>Boyunca hayatımın en güzel anlamı oldun.`;
+                
                 requestAnimationFrame(update);
-            } else {
-                // SAYAÇ BİTTİ, GEÇİŞ YAP
-                if (loadingScreen.style.display !== 'none') {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                        passwordScreen.style.display = 'block';
-                        setTimeout(() => { passwordScreen.style.opacity = '1'; }, 50);
-                    }, 800);
-                }
             }
+            update();
         }
 
-        // Şifre Giriş Kontrolü
+        // Şifre Kontrolü
         passInput.addEventListener('input', () => {
             if (passInput.value === "04012026") {
                 passwordScreen.style.opacity = '0';
@@ -156,12 +137,10 @@
                     passwordScreen.style.display = 'none';
                     mainContent.style.display = 'block';
                     mainContent.classList.add('show');
+                    startRelationshipTimer();
                 }, 800);
             }
         });
-
-        // Başlat
-        update();
     </script>
 </body>
 </html>
