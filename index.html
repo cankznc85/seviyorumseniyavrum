@@ -17,13 +17,15 @@
         #password-screen { position: absolute; text-align: center; z-index: 15000; transition: 1s; }
         input[type="password"] { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--soft-pink); padding: 15px; color: #ffffff; border-radius: 15px; font-size: 1.5rem; text-align: center; letter-spacing: 5px; width: 200px; outline: none; }
 
-        #main-content { display: none; text-align: center; padding: 30px; width: 85%; max-width: 380px; opacity: 0; background: rgba(20, 20, 20, 0.75); border-radius: 30px; border: 1px solid rgba(255, 183, 206, 0.2); backdrop-filter: blur(10px); transition: 1.5s; z-index: 5000; position: relative; }
-        .header-text { font-size: 1.8rem; font-weight: 800; color: var(--soft-pink); margin-bottom: 15px; }
+        #main-content { display: none; text-align: center; padding: 35px 25px; width: 90%; max-width: 400px; opacity: 0; background: rgba(20, 20, 20, 0.85); border-radius: 30px; border: 1px solid rgba(255, 183, 206, 0.3); backdrop-filter: blur(15px); transition: 1.5s; z-index: 5000; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .header-text { font-size: 1.8rem; font-weight: 800; color: var(--soft-pink); margin-bottom: 15px; letter-spacing: 1px; }
 
-        #timer { display: flex; justify-content: center; gap: 8px; }
-        .time-box { background: rgba(255, 183, 206, 0.1); padding: 10px; border-radius: 12px; min-width: 60px; }
-        .time-box b { font-size: 1.1rem; display: block; color: var(--soft-pink); }
-        .time-box span { font-size: 8px; text-transform: uppercase; opacity: 0.6; }
+        .main-msg { margin-bottom: 25px; font-weight: 300; font-size: 0.95rem; line-height: 1.7; color: #f0f0f0; }
+
+        #timer { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+        .time-box { background: rgba(255, 183, 206, 0.15); padding: 12px 8px; border-radius: 12px; min-width: 65px; border: 1px solid rgba(255, 183, 206, 0.1); }
+        .time-box b { font-size: 1.2rem; display: block; color: var(--soft-pink); }
+        .time-box span { font-size: 9px; text-transform: uppercase; opacity: 0.7; letter-spacing: 1px; }
 
         /* DİNAMİK FOTOĞRAF POPUP */
         #photo-popup { 
@@ -31,31 +33,28 @@
             background: #000; padding: 8px; border-radius: 15px; border: 2px solid var(--soft-pink); 
             z-index: 30000; opacity: 0; pointer-events: none; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             display: flex; align-items: center; justify-content: center; overflow: hidden;
-            box-shadow: 0 0 25px rgba(255, 183, 206, 0.4); 
+            box-shadow: 0 0 35px rgba(255, 183, 206, 0.5); 
         }
         #photo-popup.active { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
         
-        /* 3 ve 4 İÇİN SABİT BOYUT SINIFI */
-        .fixed-size { width: 200px !important; height: 200px !important; }
-        /* DİĞERLERİ İÇİN OTOMATİK BOYUT SINIFI */
+        .fixed-size { width: 250px !important; height: 250px !important; }
         .auto-size { width: auto !important; height: auto !important; max-width: 85vw; max-height: 70vh; }
 
         #popup-img { width: 100%; height: 100%; border-radius: 10px; display: none; object-fit: cover; }
-        /* Otomatik boyutta olanlar için object-fit'i contain yapıyoruz ki resim bozulmasın */
         .auto-size #popup-img { object-fit: contain; width: auto; height: auto; max-width: 100%; max-height: 100%; }
 
         .floating-item { position: absolute; color: var(--soft-pink); font-weight: 300; z-index: 10000; opacity: 0; animation: fadeMove 5s ease-in-out forwards; white-space: nowrap; pointer-events: auto; }
-        .letter-item { cursor: pointer; font-size: 2.3rem; filter: drop-shadow(0 0 10px var(--soft-pink)); z-index: 11000; }
+        .letter-item { cursor: pointer; font-size: 2.5rem; filter: drop-shadow(0 0 12px var(--soft-pink)); z-index: 11000; }
         
         @keyframes fadeMove { 
             0% { opacity: 0; transform: translateY(30px) scale(0.85); } 
-            25% { opacity: 0.65; } 
-            75% { opacity: 0.65; } 
-            100% { opacity: 0; transform: translateY(-130px) scale(1.1); } 
+            25% { opacity: 0.7; } 
+            75% { opacity: 0.7; } 
+            100% { opacity: 0; transform: translateY(-150px) scale(1.1); } 
         }
 
-        .click-heart { position: absolute; pointer-events: none; color: var(--soft-pink); font-size: 22px; z-index: 25000; animation: heartAnim 0.8s ease-out forwards; }
-        @keyframes heartAnim { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(2.2) translateY(-160px); opacity: 0; } }
+        .click-heart { position: absolute; pointer-events: none; color: var(--soft-pink); font-size: 24px; z-index: 25000; animation: heartAnim 0.8s ease-out forwards; }
+        @keyframes heartAnim { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(2.5) translateY(-180px); opacity: 0; } }
     </style>
 </head>
 <body onclick="handleGlobalInteraction(event)" ontouchstart="handleGlobalInteraction(event)">
@@ -75,8 +74,8 @@
 
         <div id="main-content">
             <div class="header-text">Yavrum....</div>
-            <p style="margin-bottom:25px; font-weight: 300; font-size: 0.95rem; line-height: 1.6;">
-                İyi ki varsın yavrum, sadece bugün değil her gün senin günün. Seni çok seviyorum öpüyorum birtanem 💞
+            <p class="main-msg">
+                Seni çok seviyorum yavrum inan bana, ben sana inanıyorum her zaman mutlu olacağız seninle birtanem benim. Bazen kırılsak da her zaman beraberiz ve her zaman beraber olacağız birbirimizi yeniden iyileştiriyoruz seviyorum seni.
             </p>
             <div id="timer">
                 <div class="time-box"><b id="days">00</b><span>Gün</span></div>
@@ -88,7 +87,7 @@
     </div>
 
     <div id="photo-popup">
-        <img src="" id="popup-img" alt="Zeynep Çocukluk">
+        <img src="" id="popup-img" alt="Fotoğraf">
     </div>
 
     <script>
@@ -117,8 +116,8 @@
             const heart = document.createElement('div');
             heart.className = 'click-heart';
             heart.innerHTML = '🤍';
-            heart.style.left = (x - 10) + 'px';
-            heart.style.top = (y - 10) + 'px';
+            heart.style.left = (x - 12) + 'px';
+            heart.style.top = (y - 12) + 'px';
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 800);
         }
@@ -146,36 +145,31 @@
                 document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
             }, 1000);
 
-            const words = ["Yavrum", "Birtanem", "Her şeyim", "Eşşek :)"];
+            const words = ["Yavrum", "Birtanem", "Her şeyim", "Eşşek :)", "Seni Seviyorum"];
 
             setInterval(() => createFloatingItem(words[Math.floor(Math.random() * words.length)], false), 2500);
-            setInterval(() => createFloatingItem('✉️', true), 9000);
+            setInterval(() => createFloatingItem('✉️', true), 8000);
 
             function createFloatingItem(content, isLetter) {
                 const item = document.createElement('div');
                 item.className = 'floating-item' + (isLetter ? ' letter-item' : '');
                 item.innerHTML = content;
-                item.style.left = (Math.random() * 80 + 5) + '%';
-                item.style.top = (Math.random() * 70 + 10) + '%';
+                item.style.left = (Math.random() * 70 + 15) + '%';
+                item.style.top = (Math.random() * 60 + 20) + '%';
                 
                 if (isLetter) {
                     item.onclick = (e) => {
                         e.stopPropagation();
-                        
-                        // %80 olasılıkla 3 veya 4, %20 olasılıkla diğerleri
                         let selectedIdx;
                         let chance = Math.random();
                         
                         if (chance < 0.80) {
-                            // 3 veya 4 seç
                             selectedIdx = Math.random() < 0.5 ? 3 : 4;
                         } else {
-                            // 1, 2, 5, 6, 7'den birini seç
                             const others = [1, 2, 5, 6, 7];
                             selectedIdx = others[Math.floor(Math.random() * others.length)];
                         }
 
-                        // Boyut Ayarı
                         if (selectedIdx === 3 || selectedIdx === 4) {
                             popup.className = 'active fixed-size';
                         } else {
